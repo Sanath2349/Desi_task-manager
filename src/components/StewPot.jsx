@@ -10,6 +10,7 @@ const StewPot = ({ isMixed, setIsMixed, slots, setSlots, tasks, setTasks }) => {
       cumin: tasks.filter((t) => t.priority === "urgent"),
       turmeric: tasks.filter((t) => t.priority === "medium"),
       coriander: tasks.filter((t) => t.priority === "low"),
+      status:slots.status
     };
 
     // Update slots and clear tasks
@@ -17,14 +18,18 @@ const StewPot = ({ isMixed, setIsMixed, slots, setSlots, tasks, setTasks }) => {
     setTasks([]);
 
     // Animate
-    gsap.to(".spice-slot", { y: 50, opacity: 0, stagger: 0.2, duration: 0.5 });
-    gsap.to(".stew-pot-container", {
-      rotation: 360,
-      duration: 1.5,
-      delay: 0.5,
-    });
-    setTimeout(() => setIsMixed(true), 1500);
+  // Animate
+  gsap.to(".spice-slot", { y: 50, opacity: 0, duration: 0.5, stagger: 0.2 });
+  gsap.to(".spice-slot", { y: 0, opacity: 1, duration: 0.5, delay: 0.7 });
+  gsap.to(".stew-pot-container", { rotation: 360, duration: 1.5, delay: 0.5 });
+  setTimeout(() => setIsMixed(true), 1500);
   };
+
+  const handleReset = () => {
+    setSlots({ cumin: [], turmeric: [], coriander: [], status: [] });
+    setIsMixed(false);
+  };
+
   const handleExport = () => {
     const data = JSON.stringify(slots);
     const blob = new Blob([data], { type: "application/json" });
@@ -46,6 +51,7 @@ const StewPot = ({ isMixed, setIsMixed, slots, setSlots, tasks, setTasks }) => {
       >
         Mix the Stew
       </button>
+      <button onClick={handleReset} className="m-2 bg-red-500 text-white p-2 rounded-lg">Reset</button>
       {isMixed && (
         <div className="mt-4">
           <div className="bg-brown-500 h-24 w-24 mx-auto rounded-lg stew-pot">

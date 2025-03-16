@@ -11,24 +11,27 @@ const Root = () => {
     cumin: [], //urgent tasks
     turmeric: [], //medium
     coriander: [], //low
+    status:[],//status
   });
   const [isMixed, setIsMixed] = useState(false);
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
-      <h1 className="text-3xl font-bold text-center mb-6">Sprint Spice Rack</h1>
-      <div className="flex flex-col md:flex-row gap-6">
-        <TaskForm tasks={tasks} setTasks={setTasks} />
-        <SpiceRack slots={slots} />
+    <DndProvider backend={HTML5Backend}>
+      <div className="min-h-screen bg-gray-100 p-4">
+        <h1 className="text-3xl font-bold text-center mb-6">Sprint Spice Rack</h1>
+        <div className="flex flex-col gap-6">
+          <TaskForm tasks={tasks} setTasks={setTasks} />
+          <SpiceRack slots={slots} setSlots={setSlots} isMixed={isMixed} />
+          <StewPot
+            isMixed={isMixed}
+            setIsMixed={setIsMixed}
+            slots={slots}
+            setSlots={setSlots}
+            tasks={tasks}
+            setTasks={setTasks}
+          />
+        </div>
       </div>
-      <StewPot
-        isMixed={isMixed}
-        setIsMixed={setIsMixed}
-        slots={slots}
-        setSlots={setSlots}
-        tasks={tasks}
-        setTasks={setTasks}
-      />
-    </div>
+    </DndProvider>
   );
 };
 

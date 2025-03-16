@@ -43,6 +43,7 @@ const TaskForm = ({ tasks, setTasks,slots,setSlots }) => {
         title: task,
         priority,
         time: parseInt(time),
+        status: "To Do", // Default status
       };
       setTasks([...tasks, newTask]);
       setTask("");
@@ -57,7 +58,7 @@ const TaskForm = ({ tasks, setTasks,slots,setSlots }) => {
           value={task}
           onChange={(e) => setTask(e.target.value)}
           placeholder="Add a task...."
-          className="w-full p-2 border rounded-lg"
+          className="w-full p-2 border rounded-lg mb-2"
         />
         <select
           value={priority}
